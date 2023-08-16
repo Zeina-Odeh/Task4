@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Task4",
+    "slug": "Task4",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
