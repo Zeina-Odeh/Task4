@@ -47,4 +47,19 @@ export default StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 5,
   },
+
+  shoppingContainer: {
+   // flex: 1,
+    backgroundColor: 'gainsboro',
+    padding: 10,
+    borderRadius: 5,
+  },
+
+  cartButton: {
+    //flex: 1,
+  },
+
+  backgroundContainer: {
+    backgroundColor: 'white', 
+  },
 });

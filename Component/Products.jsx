@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, Image, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Products = ({ product, onClose }) => (
+const Products = ({ product, onClose, addToCart, isAdded }) => (
   <Modal transparent={true} animationType="fade">
-
     <View style={styles.modalContainer}>
       <View style={styles.productContainer}> 
         <Text style={styles.productName}>{product.name}</Text>
@@ -11,11 +10,29 @@ const Products = ({ product, onClose }) => (
         <Text style={styles.productPrice}>Price: {product.price}</Text>
         <Text style={styles.productDescription}>{product.description}</Text>
         <Image source={{ uri: product.image }} style={styles.productImage} />
+        
+        <TouchableOpacity
+          onPress={addToCart}
+          style={[
+            styles.addToCartButton,
+            isAdded ? styles.addedToCartButton : null,
+          ]}
+          disabled={isAdded}
+        >
+          {isAdded ? (
+            <Text style={styles.addToCartButtonText}>Added to Cart</Text>
+          ) : (
+            <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+          )}
+        </TouchableOpacity>
+
+
         <TouchableOpacity onPress={onClose} style={styles.closeButton}>
           <Text style={styles.closeText}>Close</Text>
         </TouchableOpacity>
-      </View>
+
     </View>
+  </View>
 
   </Modal>
 );
@@ -74,6 +91,26 @@ const styles = StyleSheet.create({
       color: 'white',
       fontWeight: 'bold',
     },
+
+    addedToCartButton: {
+      marginTop: 10,
+      padding: 10,
+      backgroundColor: '#f3f3f4',
+      borderRadius: 5,
+    },
+  
+    addToCartButtonText: {
+      color: 'black',
+      fontWeight: 'bold',
+    },
+
+    addToCartButton: {
+      marginTop: 10,
+      padding: 10,
+      backgroundColor: '#a5c3f1f9',
+      borderRadius: 5,
+    },
+    
   });
 
 export default Products;
