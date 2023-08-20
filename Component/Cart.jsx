@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, Modal } from 'react-native';
 
-const ShoppingCart = ({ cart, onClose }) => {
+const ShoppingCart = ({ cart, onClose, updateQuantity }) => {
 
   let totalPrice = 0;
 
   for (const item of cart) {
-    totalPrice += item.price;
+    totalPrice += item.price * item.quantity;
   }
 
   return (
@@ -21,18 +21,30 @@ const ShoppingCart = ({ cart, onClose }) => {
             <View style={styles.cartItemImageContainer}>
               <Image source={{ uri: item.image }} style={styles.cartItemImage} />
             </View>
-            <View style={styles.cartItemDetails}>
-              <Text>{item.name}</Text>
-              <Text>Price: {item.price}</Text>
-              <Text>{item.description}</Text>
-            </View>
+              <View style={styles.cartItemDetails}>
+                <Text>{item.name}</Text>
+                <Text>Price: {item.price}</Text>
+                <Text>{item.description}</Text>
+
+                <View style={styles.quantityContainer}>
+                      <TouchableOpacity onPress={() => updateQuantity(item, -1)} style={styles.quantityButton}>
+                        <Text>-</Text>
+                      </TouchableOpacity>
+                      <Text>{item.quantity}</Text>
+                      <TouchableOpacity onPress={() => updateQuantity(item, 1)} style={styles.quantityButton}>
+                        <Text>+</Text>
+                      </TouchableOpacity>
+                </View>
+              </View>
             </View>
           )}
         />
+
         <Text style={styles.totalText}>Total: {totalPrice}</Text>
         <TouchableOpacity onPress={onClose} style={styles.closeButton}>
           <Text style={styles.closeText}>Close</Text>
         </TouchableOpacity>
+        
       </View>
   </View>
   </Modal>
@@ -104,6 +116,20 @@ const styles = StyleSheet.create ({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
+  },
+
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+
+  quantityButton: {
+    paddingHorizontal: 10,
+    backgroundColor: '#d3d3c4a2',
+    borderRadius: 5,
+    marginLeft: 5,
+    marginRight: 5,
   },
 
 });

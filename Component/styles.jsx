@@ -49,15 +49,11 @@ export default StyleSheet.create({
   },
 
   shoppingContainer: {
-   // flex: 1,
     backgroundColor: 'gainsboro',
     padding: 10,
     borderRadius: 5,
   },
 
-  cartButton: {
-    //flex: 1,
-  },
 
   backgroundContainer: {
     backgroundColor: 'white', 

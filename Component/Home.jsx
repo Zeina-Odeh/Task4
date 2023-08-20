@@ -36,9 +36,26 @@ const Home = () => {
   );
   
   const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    const cartUpdating = [...cart]; 
+    
+    const cartIndex = cartUpdating.findIndex(item => item.id === product.id);
+    
+    if (cartIndex !== -1) {
+      cartUpdating[cartIndex].quantity += product.quantity;
+    } else {
+      cartUpdating.push({ ...product });
+    } 
+    setCart(cartUpdating);
     setProductSelection(null);
   };
+  
+  const updateQuantity = (product, change) => {
+    const cartUpdating = cart.map(item =>
+      item.id === product.id ? { ...item, quantity: Math.max(item.quantity + change, 1) } : item
+      );
+    setCart(cartUpdating);
+  };
+  
 
   const debouncedSearch = debounce((text) => {
     setSearch(text);}, 300); 
@@ -76,8 +93,8 @@ const Home = () => {
         <Products
           product={productSelection}
           onClose={() => setProductSelection(null)}
-          addToCart={() => handleAddToCart(productSelection)}
-          isAdded={cart.some((item) => item.id === productSelection.id)}
+          addToCart={handleAddToCart}
+          updateQuantity={updateQuantity}        
         />
       )}
 
@@ -91,7 +108,7 @@ const Home = () => {
       </View>
 
       {cartScreenVisible && (
-        <Cart cart={cart} onClose={() => setCartScreenVisible(false)} />
+        <Cart cart={cart} onClose={() => setCartScreenVisible(false)} updateQuantity={updateQuantity} />
       )}
 
     </View>
